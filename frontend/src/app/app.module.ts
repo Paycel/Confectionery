@@ -15,7 +15,6 @@ import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import {NgbPopoverModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
@@ -30,8 +29,7 @@ import {NgbPopoverModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     CartComponent,
     ProductDetailsComponent,
     PaymentComponent,
-    ContactUsComponent,
-    UserRegistrationComponent
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,

@@ -46,7 +46,7 @@
               </select>
             </li>
             <li><a href="#" class="krishok-cart"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
-            <li><a href="#" class="popup-show" [ngbPopover]="login" [autoClose]="false" #p='ngbPopover'>Login</a>
+            <li><a href="#" class="popup-show" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>Login</a>
               <div class="login-popup login-form contact-form">
                 <ng-template #login>
                   <h4 style="font-family: 'Poppins', sans-serif;">Login</h4>
@@ -65,16 +65,62 @@
                         </div>
                       </div>
                       <div class="col-sm-12 mb-30">
-                        <button class="krishok-btn">LOGIN</button>
+                        <button class="krishok-btn login-button">LOGIN</button>
                       </div>
                       <div class="col-sm-12 mt-30">
-                        <p>Don’t Have an Account ? <a href="#" class="registration-form-show">Create Now</a></p>
+                        <p>Don’t Have an Account ? <a href="#" class="registration-form-show"
+                                                      (click)="p1.close(); p2.open()">Create Now</a></p>
                       </div>
                     </div>
                   </form>
-                  <div class="popup-close" (click)="p.close()"><i class="fa fa-close"></i></div>
+                  <div class="popup-close" (click)="p1.close()"><i class="fa fa-close"></i></div>
                 </ng-template>
               </div>
+              <div class="login-popup registration-form contact-form" [ngbPopover]="registration" [autoClose]="false"
+                   #p2='ngbPopover'>
+                <ng-template #registration>
+                  <h4 style="font-family: 'Poppins', sans-serif;">Create Account</h4>
+                  <form (ngSubmit)="onSubmitRegistration(name, email, password, retypedPassword)" #userForm='ngForm'>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="contact-container">
+                          <input type="text" class="form-control" placeholder="Username" [ngModel]="formUser?.name" required
+                                 #name="ngModel" name="username">
+                          <i class="fa fa-user"></i>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="contact-container">
+                          <input type="email" placeholder="Email Address" [ngModel]="formUser?.email" required
+                                 #email="ngModel" name="email">
+                          <i class="fa fa-envelope"></i>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="contact-container">
+                          <input type="password" placeholder="Password" [ngModel]="formUser?.password" required
+                                 #password="ngModel" name="password">
+                          <i class="fa fa-eye"></i>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 mb-15 contact-container">
+                        <input type="password" placeholder="Retype Password" [ngModel]="formUser?.retypedPassword"
+                               required #retypedPassword="ngModel" name="rpassword">
+                      </div>
+                      <div class="col-sm-12 mb-20">
+                        <button type='submit' class="krishok-btn" [disabled]="!userForm.form.valid">Create Account
+                        </button>
+                      </div>
+                      <div class="col-sm-12">
+                        <p>Already Have an Account ? <a href="#" class="login-form-show"
+                                                        (click)="p2.close(); p1.open()">Login Now</a></p>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="popup-close" (click)="p2.close()"><i class="fa fa-close"></i></div>
+                </ng-template>
+              </div>
+
             </li>
           </ul>
         </div>

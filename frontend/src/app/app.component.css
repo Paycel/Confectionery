@@ -2,6 +2,7 @@
   width: 380px;
   max-width: 380px;
   text-align: center;
+  margin-top: 30px;
 }
 
 :host >>> .contact-container input{
@@ -60,7 +61,12 @@
   font-weight: 300;
 }
 
-:host >>> .registration-form-show {
+:host >>> .registration-form-show{
+  font-weight: 400;
+  color: #77bb17;
+}
+
+:host >>> .login-form-show{
   font-weight: 400;
   color: #77bb17;
 }
@@ -72,6 +78,7 @@
   margin-left: -15px;
 }
 
-:host >>> .krishok-btn{
+:host >>> .login-button{
   margin-top: 20px;
 }
+
