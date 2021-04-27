@@ -22,4 +22,5 @@ export class AppComponent {
       }
       this.title = event['title'];
   }
+
 }
