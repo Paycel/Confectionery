@@ -37,7 +37,10 @@ export class AppComponent {
   }
 
   public onSubmitRegistration(name: NgModel, email: NgModel, password: NgModel, retypedPassword: NgModel) {
-    this.formUser = new User(name.viewModel, email.viewModel, password.viewModel);
+    if (password.viewModel == retypedPassword.viewModel) {
+      this.formUser = new User(name.viewModel, email.viewModel, password.viewModel);
+      console.log(this.formUser);
+    }
   }
 
 }

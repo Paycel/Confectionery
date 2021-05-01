@@ -31,7 +31,7 @@
   max-width: 100%;
   padding: 12px 15px;
 
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
 }
 
 :host >>> header.header-area .header-right-content li i {
