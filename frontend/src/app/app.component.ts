@@ -17,6 +17,9 @@ export class AppComponent {
   formUser: User;
   currentUser: User = null;
 
+  constructor(private userService: UserService) {
+  }
+
   public change_outlet(event: any) {
     if (event.hasOwnProperty('key') && event.hasOwnProperty('title'))
       switch (event.key) {
@@ -39,7 +42,7 @@ export class AppComponent {
   public onSubmitRegistration(name: NgModel, email: NgModel, password: NgModel, retypedPassword: NgModel) {
     if (password.viewModel == retypedPassword.viewModel) {
       this.formUser = new User(name.viewModel, email.viewModel, password.viewModel);
-      console.log(this.formUser);
+      this.userService.save(this.formUser);
     }
   }
 
