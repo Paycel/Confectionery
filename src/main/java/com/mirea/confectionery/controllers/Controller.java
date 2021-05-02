@@ -16,9 +16,13 @@ public class Controller {
     private UserService userService;
 
     @PostMapping("/users")
-    @CrossOrigin(origins = "http://localhost:4200")
     void addUser(@RequestBody User user) {
         userService.addUser(user);
+    }
+
+    @GetMapping("/users")
+    User login(String username, String email, String password){
+        return userService.login(username, email, password);
     }
 
 }

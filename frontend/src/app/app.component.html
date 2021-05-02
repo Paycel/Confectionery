@@ -39,33 +39,30 @@
       <div class="col-md-5">
         <div class="header-right-content">
           <ul>
-            <li>
-              <select>
-                <option value="En">En</option>
-                <option value="Bd">Bd</option>
-              </select>
-            </li>
             <li><a href="#" class="krishok-cart"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
             <li><a href="#" class="popup-show" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>Login</a>
               <div class="login-popup login-form contact-form">
                 <ng-template #login>
                   <h4 style="font-family: 'Poppins', sans-serif;">Login</h4>
-                  <form action="#">
+                  <form (ngSubmit)="onSubmitLogin(username_email, password)" #userFormLogin='ngForm'>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="contact-container">
-                          <input type="email" placeholder="Email Address">
+                          <input type="email" placeholder="Email Address" [ngModel]="formUser?.username" required
+                                 #username_email="ngModel" name="username_email">
                           <i class="fa fa-envelope"></i>
                         </div>
                       </div>
                       <div class="col-sm-12 mb-15">
                         <div class="contact-container">
-                          <input type="password" placeholder="Password">
+                          <input type="password" placeholder="Password" [ngModel]="formUser?.password" required
+                                 #password="ngModel" name="password">
                           <i class="fa fa-eye"></i>
                         </div>
                       </div>
                       <div class="col-sm-12 mb-30">
-                        <button class="krishok-btn login-button">LOGIN</button>
+                        <button class="krishok-btn login-button" type="submit" [disabled]="!userFormLogin.valid">
+                          LOGIN</button>
                       </div>
                       <div class="col-sm-12 mt-30">
                         <p>Don’t Have an Account ? <a href="#" class="registration-form-show"
@@ -85,7 +82,7 @@
                       <div class="col-sm-12">
                         <div class="contact-container">
                           <input type="text" class="form-control" placeholder="Username" [ngModel]="formUser?.username"
-                                 required
+                                 required pattern="^[A-Za-z0-9_]+$"
                                  #name="ngModel" name="username">
                           <i class="fa fa-user"></i>
                         </div>
@@ -93,7 +90,7 @@
                       <div class="col-sm-12">
                         <div class="contact-container">
                           <input type="email" placeholder="Email Address" [ngModel]="formUser?.email" required
-                                 #email="ngModel" name="email">
+                                 #email="ngModel" name="email" pattern="^\S+@\S+\.\S+$">
                           <i class="fa fa-envelope"></i>
                         </div>
                       </div>

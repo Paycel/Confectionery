@@ -21,13 +21,25 @@ public class UserService implements UserDetailsService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public boolean addUser(User user) {
-        User current = userRepository.findByUsername(user.getUsername());
-        if (current != null)
+        User userDB = userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail());
+        if (userDB != null)
             return false;
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        if (!user.getUsername().equals("admin"))
+            user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        else
+            user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
         userRepository.save(user);
         return true;
+    }
+
+    public User login(String username, String email, String password){
+        User user = userRepository.findByUsernameOrEmail(username, email);
+        if (user == null)
+            return null;
+        if (bCryptPasswordEncoder.matches(password, user.getPassword()))
+            return user;
+        else return null;
     }
 
     @Override

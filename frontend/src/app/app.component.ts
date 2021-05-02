@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {User} from "./user";
 import {UserService} from "./user.service";
 import {NgModel} from "@angular/forms";
+import {timeout} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -44,6 +45,26 @@ export class AppComponent {
       this.formUser = new User(name.viewModel, email.viewModel, password.viewModel);
       this.userService.save(this.formUser);
     }
+  }
+
+  public onSubmitLogin(username_email: NgModel, password: NgModel) {
+    const username_regex = new RegExp("^[A-Za-z0-9_]+$");
+    const email_regex = new RegExp("^\\S+@\\S+\\.\\S+$");
+    if (username_regex.test(username_email.viewModel)) {
+      this.userService.login(username_email.viewModel, null, password.viewModel).subscribe((current: User) => {
+        this.currentUser = current;
+      });
+    }
+    setTimeout(() => {
+      console.log(this.currentUser);
+    }, 1000);
+    // if (email_regex.test(username_email.viewModel)) {
+    //   user = this.userService.login(null, username_email.viewModel, password.viewModel);
+    // }
+    // console.log(user);
+    // if (user != null) {
+    //   this.currentUser = user;
+    // }
   }
 
 }

@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from './user';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {User} from './user';
+import {Observable} from 'rxjs/Observable';
+import {map, take} from "rxjs/operators";
+import {Params} from "@angular/router";
+import {Subject} from "rxjs";
 
 @Injectable()
 export class UserService {
@@ -17,7 +20,24 @@ export class UserService {
   }
 
   public save(user: User) {
-    return this.http.post<User>(this.usersUrl, user).subscribe(() => console.log('send post request'));
+    return this.http.post<User>(this.usersUrl, user).subscribe(() => console.log('send register request'));
   }
 
+  public login(username: string, email: string, password: string) {
+    const params = new HttpParams()
+      .set('username', username)
+      .set('email', email)
+      .set('password', password);
+    let user: User;
+    var subject = new Subject<User>();
+    this.getData(params).subscribe((current) => {
+      user = current;
+      subject.next(user);
+    });
+    return subject.asObservable();
+  }
+
+  getData(params: HttpParams) {
+    return this.http.get<User>(this.usersUrl, {params});
+  }
 }
