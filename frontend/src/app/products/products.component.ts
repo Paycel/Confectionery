@@ -12,6 +12,8 @@ export class ProductsComponent implements OnInit {
   key = 'products';
   title = 'Products | Food EZ';
   products: Array<Product>;
+  productNames: Array<String>;
+  brandNames: Array<String>;
   filteredProducts: Array<Product>;
   categories: Array<Category>;
   index = 1;
@@ -31,6 +33,12 @@ export class ProductsComponent implements OnInit {
     });
     this.productService.getCategories().subscribe((current: Array<Category>) => {
       this.categories = current;
+    });
+    this.productService.getProductNames().subscribe((current: Array<String>) => {
+      this.productNames = current;
+    });
+    this.productService.getBrandNames().subscribe((current: Array<String>) => {
+      this.brandNames = current;
     });
   }
 

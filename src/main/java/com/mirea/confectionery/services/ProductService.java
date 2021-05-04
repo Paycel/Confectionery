@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -23,5 +24,18 @@ public class ProductService {
     public List<Product> findAll(){
         return productRepository.findAll();
     }
+
+    public List<String> findDistinctProductNames(){
+        return productRepository.findDistinctByProductName().stream()
+                .map(Product::getProductName)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> findDistinctBrandNames(){
+        return productRepository.findDistinctByBrandName().stream()
+                .map(Product::getBrandName)
+                .collect(Collectors.toList());
+    }
+
 
 }

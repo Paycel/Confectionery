@@ -38,6 +38,16 @@ public class Controller {
         return productService.findAll();
     }
 
+    @GetMapping("/products/names")
+    List<String> findDistinctProductNames(){
+        return productService.findDistinctProductNames();
+    }
+
+    @GetMapping("/products/brands")
+    List<String> findDistinctBrandNames(){
+        return productService.findDistinctBrandNames();
+    }
+
     @GetMapping("/categories")
     List<Category> findAllCategories(){
         return categoryService.findAll();

@@ -11,9 +11,13 @@ export class ProductService {
 
   private productsUrl: string;
   private categoriesUrl: string;
+  private productNamesUrl: string;
+  private brandNamesUrl: string;
 
   constructor(private http: HttpClient) {
     this.productsUrl = 'http://localhost:8080/products';
+    this.productNamesUrl = this.productsUrl + "/names";
+    this.brandNamesUrl = this.productsUrl + "/brands";
     this.categoriesUrl = "http://localhost:8080/categories";
   }
 
@@ -33,6 +37,26 @@ export class ProductService {
     this.getData(this.categoriesUrl, null).subscribe((current: Array<Category>) => {
       categories = current;
       subject.next(categories);
+    });
+    return subject.asObservable();
+  }
+
+  public getProductNames(){
+    let categories: Array<String>;
+    var subject = new Subject<Array<String>>();
+    this.getData(this.productNamesUrl, null).subscribe((current: Array<String>) => {
+      categories = current;
+      subject.next(categories);
+    });
+    return subject.asObservable();
+  }
+
+  public getBrandNames(){
+    let brands: Array<String>;
+    var subject = new Subject<Array<String>>();
+    this.getData(this.brandNamesUrl, null).subscribe((current: Array<String>) => {
+      brands = current;
+      subject.next(brands);
     });
     return subject.asObservable();
   }

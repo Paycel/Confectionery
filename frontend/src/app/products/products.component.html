@@ -51,6 +51,8 @@
             <select #t1
                     (change)="filterProductName = t1.value; filter(filterProductName, filterCategory, filterBrand, filterPrice)">
               <option [value]=null>Select Product</option>
+              <option *ngFor="let name of productNames" [value]="name">
+                {{name}}</option>
             </select>
           </div>
         </div>
@@ -73,6 +75,8 @@
             <select #t3
                     (change)="filterBrand = t3.value; filter(filterProductName, filterCategory, filterBrand, filterPrice)">
               <option [value]=null>Select Brand</option>
+              <option *ngFor="let name of brandNames" [value]="name">
+                {{name}}</option>
             </select>
           </div>
         </div>
