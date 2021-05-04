@@ -39,14 +39,14 @@ public class ConfectioneryApplication implements ApplicationListener<Application
                 new Category("food stamp")
         );
         List<Product> products = Arrays.asList(
-                new Product("IL-mix light dry confectionery mix 0.2kg", 6.5f, 150),
-                new Product("IL-powdered sugar ultrafine 1kg", 1.6f, 40),
+                new Product("IL-mix light dry confectionery mix 0.2kg", "mixture", "IL", 6.5f, 150),
+                new Product("IL-powdered sugar ultrafine 1kg", "sugar", "IL", 1.6f, 40),
 
-                new Product("CACAO BARRY ALUNGA 41% milk chocolate 1kg", 18.96f, 30),
-                new Product("Callebaut Mona Lisa White Chocolate Pencils 900g", 30.11f, 9),
+                new Product("CACAO BARRY ALUNGA 41% milk chocolate 1kg", "chocolate", "CACAO BARRY ALUNGA", 18.96f, 30),
+                new Product("Callebaut Mona Lisa White Chocolate Pencils 900g", "chocolate", "Callebaut Mona Lisa", 30.11f, 9),
 
-                new Product("Transfer paper for meringue KopyForm A4 25 sheets", 30.58f, 2),
-                new Product("Wafer paper KopyForm thin A4 1 sheet", 0.33f, 50)
+                new Product("Transfer paper for meringue KopyForm A4 25 sheets", "paper", "KopyForm", 30.58f, 2),
+                new Product("Wafer paper KopyForm thin A4 1 sheet", "paper", "KopyForm", 0.33f, 50)
         );
         products.get(0).setCategory(categories.get(0));
         products.get(1).setCategory(categories.get(0));

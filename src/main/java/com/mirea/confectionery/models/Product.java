@@ -20,8 +20,16 @@ public class Product {
     private Long id;
 
     @NonNull
+    @Column(name = "full_name")
+    private String fullName;
+
+    @NonNull
     @Column(name = "product_name")
     private String productName;
+
+    @NonNull
+    @Column(name = "brand_name")
+    private String brandName;
 
     @NonNull
     @Column(name = "price")
@@ -36,6 +44,5 @@ public class Product {
     private Category category = new Category();
 
     @ManyToMany(mappedBy = "cart")
-    @JsonIgnore
     private Set<User> users;
 }

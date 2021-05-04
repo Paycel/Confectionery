@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS products
 (
     product_id SERIAL NOT NULL PRIMARY KEY ,
     category_id INT NOT NULL,
+    brand_name VARCHAR(256) NOT NULL ,
+    full_name VARCHAR(256) NOT NULL ,
     product_name VARCHAR(256) NOT NULL ,
     price real NOT NULL,
     amount integer NOT NULL

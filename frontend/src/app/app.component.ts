@@ -63,7 +63,6 @@ export class AppComponent {
     setTimeout(() => {
       console.log(this.currentUser);
     }, 1000);
-
   }
 
 }

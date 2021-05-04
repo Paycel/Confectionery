@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Product} from "../product";
+import {ProductService} from "../product-service.service";
+import {Category} from "../category";
 
 @Component({
   selector: 'products',
@@ -8,10 +11,57 @@ import { Component, OnInit } from '@angular/core';
 export class ProductsComponent implements OnInit {
   key = 'products';
   title = 'Products | Food EZ';
+  products: Array<Product>;
+  filteredProducts: Array<Product>;
+  categories: Array<Category>;
+  index = 1;
 
-  constructor() { }
+  filterProductName: string = null;
+  filterCategory: string = null;
+  filterBrand: string = null;
+  filterPrice: string = null;
 
-  ngOnInit() {
+  constructor(private productService: ProductService) {
   }
 
+  ngOnInit() {
+    this.productService.getProducts().subscribe((current: Array<Product>) => {
+      this.products = current;
+      this.filteredProducts = current;
+    });
+    this.productService.getCategories().subscribe((current: Array<Category>) => {
+      this.categories = current;
+    });
+  }
+
+  filter(productName: string, category: string, brand: string, price: string) {
+    console.log(productName, category, brand, price);
+    this.filteredProducts = this.products
+      .filter(product => productName != "null" && productName ? product.productName == productName : true)
+      .filter(product => category != "null" && category? product.category.categoryName == category : true)
+      .filter(product => brand != "null" && brand ? product.brandName == brand : true)
+      .filter(product => {
+        if (price == "null" || !price) return true;
+        switch (price) {
+          case '0':
+            return product.price <= 20;
+          case '1':
+            return product.price >= 15 && product.price <= 60;
+          case '2':
+            return product.price >= 50 && product.price <= 200;
+        }
+      });
+  }
+
+  public decreaseIndex() {
+    if (this.index - 1 > 0) {
+      this.index -= 1;
+    }
+  }
+
+  public increaseIndex() {
+    if (this.index + 1 < 5) {
+      this.index += 1;
+    }
+  }
 }
