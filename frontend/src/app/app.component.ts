@@ -55,16 +55,15 @@ export class AppComponent {
         this.currentUser = current;
       });
     }
+    if (email_regex.test(username_email.viewModel)) {
+      this.userService.login(null, username_email.viewModel, password.viewModel).subscribe((current: User) => {
+        this.currentUser = current;
+      });
+    }
     setTimeout(() => {
       console.log(this.currentUser);
     }, 1000);
-    // if (email_regex.test(username_email.viewModel)) {
-    //   user = this.userService.login(null, username_email.viewModel, password.viewModel);
-    // }
-    // console.log(user);
-    // if (user != null) {
-    //   this.currentUser = user;
-    // }
+
   }
 
 }

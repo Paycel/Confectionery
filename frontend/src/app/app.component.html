@@ -40,9 +40,10 @@
         <div class="header-right-content">
           <ul>
             <li><a href="#" class="krishok-cart"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
-            <li><a href="#" class="popup-show" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>Login</a>
-              <div class="login-popup login-form contact-form">
-                <ng-template #login>
+            <li><a href="#" class="popup-show">
+              <span *ngIf="currentUser == null" (click)="p1.open()">Login</span>
+              <div class="login-popup login-form contact-form" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>
+              <ng-template #login>
                   <h4 style="font-family: 'Poppins', sans-serif;">Login</h4>
                   <form (ngSubmit)="onSubmitLogin(username_email, password)" #userFormLogin='ngForm'>
                     <div class="row">
@@ -61,8 +62,10 @@
                         </div>
                       </div>
                       <div class="col-sm-12 mb-30">
-                        <button class="krishok-btn login-button" type="submit" [disabled]="!userFormLogin.valid">
-                          LOGIN</button>
+                        <button class="krishok-btn login-button" type="submit" [disabled]="!userFormLogin.valid"
+                                (click)="p1.close()">
+                          LOGIN
+                        </button>
                       </div>
                       <div class="col-sm-12 mt-30">
                         <p>Don’t Have an Account ? <a href="#" class="registration-form-show"
@@ -71,11 +74,11 @@
                     </div>
                   </form>
                   <div class="popup-close" (click)="p1.close()"><i class="fa fa-close"></i></div>
-                </ng-template>
+              </ng-template>
               </div>
               <div class="login-popup registration-form contact-form" [ngbPopover]="registration" [autoClose]="false"
                    #p2='ngbPopover'>
-                <ng-template #registration>
+              <ng-template #registration>
                   <h4 style="font-family: 'Poppins', sans-serif;">Create Account</h4>
                   <form (ngSubmit)="onSubmitRegistration(name, email, password, retypedPassword)" #userForm='ngForm'>
                     <div class="row">
@@ -118,9 +121,25 @@
                     </div>
                   </form>
                   <div class="popup-close" (click)="p2.close()"><i class="fa fa-close"></i></div>
+              </ng-template>
+              </div>
+              <span *ngIf="currentUser != null" [ngbPopover]="logged" [autoClose]="false"
+                    #loggedForm='ngbPopover'>{{this.currentUser?.username}}
+                <div class="login-popup login-form contact-form">
+                <ng-template #logged>
+                  <h4 style="font-family: 'Poppins', sans-serif;">{{this.currentUser?.username}}</h4>
+                  <div class="row">
+                    <div class="col-sm-12 mb-30">
+                      <button class="krishok-btn login-button" type="submit" (click)="loggedForm.close(); this.currentUser = null">
+                        LOGOUT
+                      </button>
+                    </div>
+                  </div>
+                  <div class="popup-close" (click)="loggedForm.close()"><i class="fa fa-close"></i></div>
                 </ng-template>
               </div>
-
+              </span>
+            </a>
             </li>
           </ul>
         </div>
