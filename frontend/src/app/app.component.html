@@ -31,16 +31,19 @@
       <div class="col-md-7">
         <div class="header-left-content">
           <ul>
-            <li><a href="#"><i class="fa fa-phone"></i>0123 4567 8913</a></li>
-            <li><a href="#"><i class="fa fa-envelope"></i>example@gmail.com</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-phone"></i>0123 4567 8913</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-envelope"></i>example@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="col-md-5">
         <div class="header-right-content">
           <ul>
-            <li><a href="#" class="krishok-cart"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
-            <li><a href="#" class="popup-show">
+            <li><a href="javascript:void(0)" onclick="return false" class="krishok-cart"><i class="fa fa-shopping-cart"></i>
+              <span *ngIf="this.currentUser == null">0</span>
+              <span *ngIf="this.currentUser != null">{{this.currentUser?.cart.length}}</span>
+            </a></li>
+            <li><a href="javascript:void(0)" class="popup-show">
               <span *ngIf="currentUser == null" (click)="p1.open()">Login</span>
               <div class="login-popup login-form contact-form" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>
               <ng-template #login>
@@ -68,7 +71,7 @@
                         </button>
                       </div>
                       <div class="col-sm-12 mt-30">
-                        <p>Don’t Have an Account ? <a href="#" class="registration-form-show"
+                        <p>Don’t Have an Account ? <a href="javascript:void(0)" class="registration-form-show"
                                                       (click)="p1.close(); p2.open()">Create Now</a></p>
                       </div>
                     </div>
@@ -115,7 +118,7 @@
                         </button>
                       </div>
                       <div class="col-sm-12">
-                        <p>Already Have an Account ? <a href="#" class="login-form-show"
+                        <p>Already Have an Account ? <a href="javascript:void(0)" class="login-form-show"
                                                         (click)="p2.close(); p1.open()">Login Now</a></p>
                       </div>
                     </div>
@@ -130,7 +133,7 @@
                   <h4 style="font-family: 'Poppins', sans-serif;">{{this.currentUser?.username}}</h4>
                   <div class="row">
                     <div class="col-sm-12 mb-30">
-                      <button class="krishok-btn login-button" type="submit" (click)="loggedForm.close(); this.currentUser = null">
+                      <button class="krishok-btn login-button" type="submit" (click)="loggedForm.close(); logout();">
                         LOGOUT
                       </button>
                     </div>
@@ -185,7 +188,7 @@
     <div class="row">
       <div class="col-lg-5">
         <div class="widget">
-          <h5 class="widget-title"><a href="#">About Us</a></h5>
+          <h5 class="widget-title"><a href="javascript:void(0)">About Us</a></h5>
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of tand scrambled
             it to make a type specimen wonder full book. </p>
@@ -199,7 +202,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <div class="widget">
-          <h5 class="widget-title"><a href="#">Keep in touch</a></h5>
+          <h5 class="widget-title"><a href="javascript:void(0)">Keep in touch</a></h5>
           <ul>
             <li>Address : 97 New Design Street, Dhaka BD</li>
             <li>Phone : 1234 5678 9123</li>

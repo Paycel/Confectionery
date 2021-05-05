@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "./user";
 import {UserService} from "./user.service";
 import {NgModel} from "@angular/forms";
-import {timeout} from "rxjs/operators";
+import {LocalStorageService} from "angular-2-local-storage";
+
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,18 @@ import {timeout} from "rxjs/operators";
     './app.component.css'
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   key = 'menu';
   title = "Welcome | Food EZ";
   compNumber = 0;
   formUser: User;
   currentUser: User = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private _localStorageService: LocalStorageService) {
+  }
+
+  ngOnInit(): void {
+    this.currentUser = JSON.parse(this._localStorageService.get("current_user"));
   }
 
   public change_outlet(event: any) {
@@ -53,16 +58,23 @@ export class AppComponent {
     if (username_regex.test(username_email.viewModel)) {
       this.userService.login(username_email.viewModel, null, password.viewModel).subscribe((current: User) => {
         this.currentUser = current;
+        this._localStorageService.set("current_user", JSON.stringify(current));
       });
     }
     if (email_regex.test(username_email.viewModel)) {
       this.userService.login(null, username_email.viewModel, password.viewModel).subscribe((current: User) => {
         this.currentUser = current;
+        this._localStorageService.set("current_user", JSON.stringify(current));
       });
     }
     setTimeout(() => {
       console.log(this.currentUser);
     }, 1000);
+  }
+
+  public logout(){
+    this._localStorageService.remove("current_user");
+    this.currentUser = null;
   }
 
 }

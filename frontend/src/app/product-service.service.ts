@@ -61,6 +61,16 @@ export class ProductService {
     return subject.asObservable();
   }
 
+  public getProductById(id){
+    let product: Product;
+    var subject = new Subject<Product>();
+    this.getData(this.productsUrl + "/" + id, null).subscribe((current: Product) => {
+      product = current;
+      subject.next(product);
+    });
+    return subject.asObservable();
+  }
+
   public getData(url, params: HttpParams) {
     return this.http.get(url, {params});
   }

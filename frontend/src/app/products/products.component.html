@@ -102,19 +102,19 @@
             <div class="product-img">
               <img src="assets/img/main-product/1.jpg" alt="">
               <div class="product-img-overlay">
-                <a href="#" class="krishok-btn">Add to cart <i class="fa fa-shopping-cart"></i></a>
+                <a href="javascript:void(0)" class="krishok-btn">Add to cart <i class="fa fa-shopping-cart"></i></a>
               </div>
             </div>
           </div>
           <div class="product-details">
             <div class="product-info">
-              <a href="product-details.html"><h4>{{product.fullName}}</h4></a>
+              <a href="javascript:void(0)" routerLink='/product-details' [queryParams]="{id: product.id}"><h4>{{product.fullName}}</h4></a>
               <p>{{product.brandName}}</p>
               <span class="price">Price: <strong>${{product.price}}</strong></span>
             </div>
             <div class="product-icon">
-              <a href="#"><i class="fa fa-heart"></i></a>
-              <a href="#"><i class="fa fa-share-alt"></i></a>
+              <a href="javascript:void(0)"><i class="fa fa-heart"></i></a>
+              <a href="javascript:void(0)"><i class="fa fa-share-alt"></i></a>
             </div>
           </div>
         </div>
@@ -124,12 +124,12 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="pagination">
-          <li><a type="button" (click)="decreaseIndex()"><i class="fa fa-angle-left"></i></a></li>
-          <li [ngClass]="{'active': index == 1}"><a (click)="index = 1">1</a></li>
-          <li [ngClass]="{'active': index == 2}"><a (click)="index = 2">2</a></li>
-          <li [ngClass]="{'active': index == 3}"><a (click)="index = 3">3</a></li>
-          <li [ngClass]="{'active': index == 4}"><a (click)="index = 4">4</a></li>
-          <li><a type="button" (click)="increaseIndex();"><i class="fa fa-angle-right"></i></a></li>
+          <li><a href="javascript:void(0)" (click)="decreaseIndex()"><i class="fa fa-angle-left"></i></a></li>
+          <li [ngClass]="{'active': index == 1}"><a href="javascript:void(0)" (click)="index = 1">1</a></li>
+          <li [ngClass]="{'active': index == 2}"><a href="javascript:void(0)" (click)="index = 2">2</a></li>
+          <li [ngClass]="{'active': index == 3}"><a href="javascript:void(0)" (click)="index = 3">3</a></li>
+          <li [ngClass]="{'active': index == 4}"><a href="javascript:void(0)" (click)="index = 4">4</a></li>
+          <li><a href="javascript:void(0)" (click)="increaseIndex();"><i class="fa fa-angle-right"></i></a></li>
         </ul>
       </div>
     </div>

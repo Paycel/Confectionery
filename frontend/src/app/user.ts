@@ -5,7 +5,7 @@ export class User {
   email: string;
   password: string;
   retypedPassword: string;
-  cart: Array<Product>
+  cart: Array<Product>;
 
 
   constructor(name: string, email: string, password: string) {

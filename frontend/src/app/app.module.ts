@@ -16,6 +16,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { PaymentComponent } from './payment/payment.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {NgbPopoverModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {LocalStorageModule} from "angular-2-local-storage";
+import {ProductService} from "./product-service.service";
 
 
 
@@ -32,6 +34,10 @@ import {NgbPopoverModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     ContactUsComponent
   ],
   imports: [
+    LocalStorageModule.forRoot({
+      prefix: "app",
+      storageType: "localStorage"
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -39,7 +45,7 @@ import {NgbPopoverModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     NgbPopoverModule,
     NgbModule
   ],
-  providers: [UserService],
+  providers: [UserService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

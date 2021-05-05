@@ -37,5 +37,9 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public Product findById(Long id){
+        return productRepository.getOne(id);
+    }
+
 
 }

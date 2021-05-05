@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from './user';
 import {Observable} from 'rxjs/Observable';
-import {map, take} from "rxjs/operators";
-import {Params} from "@angular/router";
 import {Subject} from "rxjs";
 
 @Injectable()
@@ -30,7 +28,7 @@ export class UserService {
       .set('password', password);
     let user: User;
     var subject = new Subject<User>();
-    this.getData(params).subscribe((current) => {
+    this.getData(params).subscribe((current: User) => {
       user = current;
       subject.next(user);
     });
@@ -38,6 +36,6 @@ export class UserService {
   }
 
   getData(params: HttpParams) {
-    return this.http.get<User>(this.usersUrl, {params});
+    return this.http.get(this.usersUrl, {params});
   }
 }

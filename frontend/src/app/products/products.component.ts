@@ -43,7 +43,6 @@ export class ProductsComponent implements OnInit {
   }
 
   filter(productName: string, category: string, brand: string, price: string) {
-    console.log(productName, category, brand, price);
     this.filteredProducts = this.products
       .filter(product => productName != "null" && productName ? product.productName == productName : true)
       .filter(product => category != "null" && category? product.category.categoryName == category : true)
