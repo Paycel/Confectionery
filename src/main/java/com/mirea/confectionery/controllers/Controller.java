@@ -41,7 +41,6 @@ public class Controller {
 
     @GetMapping("/products/{id}")
     Product findProductById(@PathVariable("id") Long id){
-        System.out.println(productService.findById(id));
         return productService.findById(id);
     }
 

@@ -41,6 +41,10 @@ public class Product {
     @Column(name = "amount")
     private Integer amount;
 
+    @NonNull
+    @Column(name = "quantity")
+    private Integer quantity = 1;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
     private Category category = new Category();

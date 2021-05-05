@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS products
     brand_name VARCHAR(256) NOT NULL ,
     full_name VARCHAR(256) NOT NULL ,
     product_name VARCHAR(256) NOT NULL ,
+    quantity integer NOT NULL,
     price real NOT NULL,
     amount integer NOT NULL
 );
