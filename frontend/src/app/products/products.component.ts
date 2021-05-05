@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Product} from "../product";
 import {ProductService} from "../product-service.service";
 import {Category} from "../category";
+import {User} from "../user";
+import {LocalStorageService} from "angular-2-local-storage";
 
 @Component({
   selector: 'products',
@@ -11,6 +13,7 @@ import {Category} from "../category";
 export class ProductsComponent implements OnInit {
   key = 'products';
   title = 'Products | Food EZ';
+
   products: Array<Product>;
   productNames: Array<String>;
   brandNames: Array<String>;
@@ -18,15 +21,18 @@ export class ProductsComponent implements OnInit {
   categories: Array<Category>;
   index = 1;
 
+  currentUser: User;
+
   filterProductName: string = null;
   filterCategory: string = null;
   filterBrand: string = null;
   filterPrice: string = null;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private _localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(this._localStorageService.get('current_user'));
     this.productService.getProducts().subscribe((current: Array<Product>) => {
       this.products = current;
       this.filteredProducts = current;
@@ -70,5 +76,19 @@ export class ProductsComponent implements OnInit {
     if (this.index + 1 < 5) {
       this.index += 1;
     }
+  }
+
+  public addToCart(product){
+    let found = false;
+    this.currentUser.cart.forEach((element) => {
+      if (!found && product.fullName == element.fullName){
+        element.quantity += 1;
+        found = true;
+      }
+    });
+    if (!found)
+    this.currentUser.cart.push(product);
+
+    this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 }

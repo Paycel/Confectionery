@@ -8,10 +8,11 @@ export class Product {
   price: number;
   amount: number;
   category: Category;
+  quantity: number;
   url: string;
 
 
-  constructor(id: number, fullName: string, brandName: string, productName: string, price: number, amount: number, category: Category, url: string) {
+  constructor(id: number, fullName: string, brandName: string, productName: string, price: number, amount: number, category: Category, quantity: number, url: string) {
     this.id = id;
     this.fullName = fullName;
     this.brandName = brandName;
@@ -19,6 +20,7 @@ export class Product {
     this.price = price;
     this.amount = amount;
     this.category = category;
+    this.quantity = quantity;
     this.url = url;
   }
 }

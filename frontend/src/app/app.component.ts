@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "./user";
 import {UserService} from "./user.service";
 import {NgModel} from "@angular/forms";
 import {LocalStorageService} from "angular-2-local-storage";
+import {ProductsComponent} from "./products/products.component";
 
 
 @Component({
@@ -13,6 +14,7 @@ import {LocalStorageService} from "angular-2-local-storage";
   ]
 })
 export class AppComponent implements OnInit{
+  @ViewChild(ProductsComponent) productsComponent;
   key = 'menu';
   title = "Welcome | Food EZ";
   compNumber = 0;
