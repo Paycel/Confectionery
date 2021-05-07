@@ -23,7 +23,7 @@ export class UserService {
     return this.http.post<User>(this.paymentUrl, user).subscribe(() => console.log('send purchase request'));
   }
 
-  public login(username: string, email: string, password: string) {
+  public getUser(username: string, email: string, password: string) {
     const params = new HttpParams()
       .set('username', username)
       .set('email', email)

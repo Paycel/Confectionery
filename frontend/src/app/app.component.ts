@@ -1,9 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "./user";
 import {UserService} from "./user.service";
-import {NgModel} from "@angular/forms";
 import {LocalStorageService} from "angular-2-local-storage";
-import {ProductsComponent} from "./products/products.component";
 
 
 @Component({
@@ -14,7 +12,6 @@ import {ProductsComponent} from "./products/products.component";
   ]
 })
 export class AppComponent implements OnInit{
-  @ViewChild(ProductsComponent) productsComponent;
   key = 'menu';
   title = "Welcome | Food EZ";
   compNumber = 0;
@@ -60,25 +57,26 @@ export class AppComponent implements OnInit{
     const username_regex = new RegExp("^[A-Za-z0-9_]+$");
     const email_regex = new RegExp("^\\S+@\\S+\\.\\S+$");
     if (username_regex.test(this.formUser.username)) {
-      this.userService.login(this.formUser.username, null, this.formUser.password).subscribe((current: User) => {
+      this.userService.getUser(this.formUser.username, null, this.formUser.password).subscribe((current: User) => {
         this.currentUser = current;
         this._localStorageService.set("current_user", JSON.stringify(current));
       });
     }
     if (email_regex.test(this.formUser.username)) {
-      this.userService.login(null, this.formUser.username, this.formUser.password).subscribe((current: User) => {
+      this.userService.getUser(null, this.formUser.username, this.formUser.password).subscribe((current: User) => {
         this.currentUser = current;
         this._localStorageService.set("current_user", JSON.stringify(current));
       });
     }
-    setTimeout(() => {
-      console.log(this.currentUser);
-    }, 1000);
   }
 
   public logout(){
     this._localStorageService.remove("current_user");
     this.currentUser = null;
+  }
+
+  public refresh(){
+    this.currentUser = JSON.parse(this._localStorageService.get("current_user"));
   }
 
 }

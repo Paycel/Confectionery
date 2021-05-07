@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,16 +42,18 @@ public class ProductService {
         return productRepository.getOne(id);
     }
 
-    public int updateProductAmount(Long id, Long new_amount) {
-        return productRepository.updateAmount(id, new_amount);
+    public Product updateProductAmount(Long id, Integer new_amount) {
+        Product product = productRepository.getOne(id);
+        product.setAmount(new_amount);
+        return productRepository.save(product);
     }
 
-    public boolean updateAmounts(List<Product> products) {
+    public boolean updateAmounts(Set<Product> products) {
         List<Product> old_product = findAll();
-        products.forEach(product -> updateProductAmount(product.getId(), (long) (old_product.stream()
-                .filter(t -> t.getId().equals(product.getId()))
-                .findFirst().get()
-                .getAmount() - product.getAmount())));
+        products.forEach(product -> updateProductAmount(product.getId(), old_product.stream()
+                        .filter(t -> t.getId().equals(product.getId()))
+                        .findFirst().get()
+                        .getAmount() - product.getQuantity()));
         return true;
     }
 }

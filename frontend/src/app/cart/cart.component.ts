@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, forwardRef, Inject, OnInit} from '@angular/core';
 import {LocalStorageService} from "angular-2-local-storage";
 import {User} from "../user";
 import {ProductService} from "../product-service.service";
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit {
   title = 'Cart | Food EZ';
   currentUser: User;
 
-  constructor(private productService: ProductService, private _localStorageService: LocalStorageService) {
+  constructor(@Inject(forwardRef(() => AppComponent)) private _parent: AppComponent, private productService: ProductService, private _localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -24,7 +25,9 @@ export class CartComponent implements OnInit {
     this.currentUser.cart.forEach((element, index) => {
       if (element.fullName == product.fullName) this.currentUser.cart.splice(index, 1);
     });
-    this.productService.updateCart(this.currentUser);
+    this.productService.updateCart(this.currentUser).subscribe(() => {
+      this._parent.refresh();
+    });
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 

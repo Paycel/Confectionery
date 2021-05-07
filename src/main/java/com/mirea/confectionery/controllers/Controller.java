@@ -62,6 +62,7 @@ public class Controller {
 
     @PostMapping("/payment/user")
     boolean purchase(@RequestBody User user){
+        productService.updateAmounts(user.getCart());
         return userService.purchase(user);
     }
 
@@ -72,8 +73,8 @@ public class Controller {
 //    }
 
     @PostMapping("/cart/update")
-    void updateCart(@RequestBody User user){
-         userService.updateCart(user);
+    User updateCart(@RequestBody User user){
+        return userService.updateCart(user);
     }
 
 

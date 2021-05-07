@@ -1,9 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
+import { Inject, forwardRef } from '@angular/core';
 import {Product} from "../product";
 import {ProductService} from "../product-service.service";
 import {Category} from "../category";
 import {User} from "../user";
 import {LocalStorageService} from "angular-2-local-storage";
+import {EventEmitter} from "@angular/core";
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'products',
@@ -28,7 +31,7 @@ export class ProductsComponent implements OnInit {
   filterBrand: string = null;
   filterPrice: string = null;
 
-  constructor(private productService: ProductService, private _localStorageService: LocalStorageService) {
+  constructor(@Inject(forwardRef(() => AppComponent)) private _parent: AppComponent, private productService: ProductService, private _localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -80,7 +83,6 @@ export class ProductsComponent implements OnInit {
 
   public addToCart(product){
     let found = false;
-    console.log(this.currentUser);
     product.userIds.push(this.currentUser.id);
     this.currentUser.cart.forEach((element) => {
       if (!found && product.fullName == element.fullName){
@@ -89,7 +91,11 @@ export class ProductsComponent implements OnInit {
       }
     });
     if (!found) this.currentUser.cart.push(product);
-    this.productService.updateCart(this.currentUser);
+
+    this.productService.updateCart(this.currentUser).subscribe(() => {
+      this._parent.refresh();
+    });
+
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 }

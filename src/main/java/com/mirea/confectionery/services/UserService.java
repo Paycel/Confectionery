@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public User login(String username, String email, String password){
+    public User login(String username, String email, String password) {
         User user = userRepository.findByUsernameOrEmail(username, email);
         if (user == null)
             return null;
@@ -57,18 +57,14 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public void updateCart(User user){
+    public User updateCart(User user) {
         User current = userRepository.findByUsername(user.getUsername());
         current.setCart(user.getCart());
-        current.getCart().forEach(product -> {
-            product.setUsers(Stream.of(current).collect(Collectors.toSet()));
-            //System.out.println(product.getUsers());
-        });
-         userRepository.save(current);
-        //return userRepository.updateCart(user.getId(), current.getCart());
+        current.getCart().forEach(product -> product.setUsers(Stream.of(current).collect(Collectors.toSet())));
+        return userRepository.save(current);
     }
 
-    public boolean purchase(User user ){
+    public boolean purchase(User user) {
         user.getCart().clear();
         updateCart(user);
         return true;

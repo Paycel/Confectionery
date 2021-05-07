@@ -52,6 +52,7 @@ public class Product {
     private Category category = new Category();
 
     @ManyToMany(mappedBy = "cart")
+    @JsonIgnore
     private Set<User> users;
 
     @Transient

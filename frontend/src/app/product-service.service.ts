@@ -25,7 +25,13 @@ export class ProductService {
   }
 
   public updateCart(user: User){
-    return this.http.post<User>(this.cartUpdateUrl, user).subscribe(() => console.log('send cart upd request'));
+    let c: User;
+    var subject = new Subject<User>();
+    this.postData(this.cartUpdateUrl, user).subscribe((current: User) => {
+      c = current;
+      subject.next(c);
+    });
+    return subject.asObservable();
   }
 
   public getProducts() {
@@ -80,5 +86,9 @@ export class ProductService {
 
   public getData(url, params: HttpParams) {
     return this.http.get(url, {params});
+  }
+
+  public postData(url, body) {
+    return this.http.post(url, body);
   }
 }
