@@ -35,7 +35,5 @@ export class PaymentComponent implements OnInit {
     this.currentUser.cart = new Array<Product>();
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
     this._parent.refresh();
-
   }
-
 }
