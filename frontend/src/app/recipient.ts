@@ -1,3 +1,5 @@
+import {Product} from "./product";
+
 export class Recipient{
   firstName: string;
   lastName: string;
@@ -6,6 +8,7 @@ export class Recipient{
   city: string;
   address: string;
   instructions: string;
+  productList: Array<Product>;
 
   constructor() {
   }

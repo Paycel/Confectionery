@@ -33,7 +33,7 @@ export class CartComponent implements OnInit {
 
   public getTotalPrice(){
     let total = 0;
-    this.currentUser.cart.forEach((product) => {
+    this.currentUser?.cart.forEach((product) => {
       total += product.price * product.quantity;
     });
     return Math.round(total * 100) / 100;

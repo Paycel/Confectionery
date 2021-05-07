@@ -57,4 +57,9 @@ public class Product {
 
     @Transient
     private List<Long> userIds = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return String.format("Product: %s, quantity: %d, total cost: $%.2f", getFullName(), getQuantity(), getQuantity() * getPrice());
+    }
 }

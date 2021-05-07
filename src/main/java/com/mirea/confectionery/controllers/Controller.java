@@ -6,6 +6,7 @@ import com.mirea.confectionery.models.Recipient;
 import com.mirea.confectionery.models.User;
 import com.mirea.confectionery.repositories.UserRepository;
 import com.mirea.confectionery.services.CategoryService;
+import com.mirea.confectionery.services.EmailService;
 import com.mirea.confectionery.services.ProductService;
 import com.mirea.confectionery.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class Controller {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/users")
     void addUser(@RequestBody User user) {
@@ -66,17 +69,13 @@ public class Controller {
         return userService.purchase(user);
     }
 
-    //todo add email service
-//    @PostMapping("/payment/recipient")
-//    boolean sendEmail(@RequestBody Recipient recipient){
-//        return userService.sendEmail(recipient);
-//    }
+    @PostMapping("/payment/recipient")
+    void sendEmail(@RequestBody Recipient recipient){
+        emailService.sendEmail(recipient);
+    }
 
     @PostMapping("/cart/update")
     User updateCart(@RequestBody User user){
         return userService.updateCart(user);
     }
-
-
-
 }
