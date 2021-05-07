@@ -42,6 +42,7 @@ public class User implements UserDetails {
     private Set<Product> cart;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }

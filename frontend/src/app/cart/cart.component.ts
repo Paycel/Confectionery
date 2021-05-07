@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalStorageService} from "angular-2-local-storage";
 import {User} from "../user";
+import {ProductService} from "../product-service.service";
 
 @Component({
   selector: 'app-cart',
@@ -8,11 +9,11 @@ import {User} from "../user";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  key = 'products';
+  key = 'cart';
   title = 'Cart | Food EZ';
   currentUser: User;
 
-  constructor(private _localStorageService: LocalStorageService) {
+  constructor(private productService: ProductService, private _localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class CartComponent implements OnInit {
     this.currentUser.cart.forEach((element, index) => {
       if (element.fullName == product.fullName) this.currentUser.cart.splice(index, 1);
     });
+    this.productService.updateCart(this.currentUser);
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 
@@ -45,6 +47,7 @@ export class CartComponent implements OnInit {
         element.quantity += 1;
       }
     });
+    this.productService.updateCart(this.currentUser);
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 
@@ -56,6 +59,7 @@ export class CartComponent implements OnInit {
         else this.remove(element);
       }
     });
+    this.productService.updateCart(this.currentUser);
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 }

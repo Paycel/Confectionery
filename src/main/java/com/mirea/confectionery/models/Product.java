@@ -6,6 +6,8 @@ import lombok.*;
 import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -51,4 +53,7 @@ public class Product {
 
     @ManyToMany(mappedBy = "cart")
     private Set<User> users;
+
+    @Transient
+    private List<Long> userIds = new ArrayList<>();
 }

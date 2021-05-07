@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Subject} from "rxjs";
 import {Product} from "./product";
 import {Category} from "./category";
+import {User} from "./user";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,18 @@ export class ProductService {
   private categoriesUrl: string;
   private productNamesUrl: string;
   private brandNamesUrl: string;
+  private cartUpdateUrl: string;
 
   constructor(private http: HttpClient) {
     this.productsUrl = 'http://localhost:8080/products';
     this.productNamesUrl = this.productsUrl + "/names";
     this.brandNamesUrl = this.productsUrl + "/brands";
     this.categoriesUrl = "http://localhost:8080/categories";
+    this.cartUpdateUrl = "http://localhost:8080/cart/update";
+  }
+
+  public updateCart(user: User){
+    return this.http.post<User>(this.cartUpdateUrl, user).subscribe(() => console.log('send cart upd request'));
   }
 
   public getProducts() {

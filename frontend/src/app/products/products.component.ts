@@ -80,15 +80,16 @@ export class ProductsComponent implements OnInit {
 
   public addToCart(product){
     let found = false;
+    console.log(this.currentUser);
+    product.userIds.push(this.currentUser.id);
     this.currentUser.cart.forEach((element) => {
       if (!found && product.fullName == element.fullName){
         element.quantity += 1;
         found = true;
       }
     });
-    if (!found)
-    this.currentUser.cart.push(product);
-
+    if (!found) this.currentUser.cart.push(product);
+    this.productService.updateCart(this.currentUser);
     this._localStorageService.set("current_user", JSON.stringify(this.currentUser));
   }
 }

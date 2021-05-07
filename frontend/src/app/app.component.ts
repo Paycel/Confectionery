@@ -18,8 +18,8 @@ export class AppComponent implements OnInit{
   key = 'menu';
   title = "Welcome | Food EZ";
   compNumber = 0;
-  formUser: User;
-  currentUser: User = null;
+  formUser: User = new User();
+  currentUser: User = new User();
 
   constructor(private userService: UserService, private _localStorageService: LocalStorageService) {
   }
@@ -40,31 +40,33 @@ export class AppComponent implements OnInit{
         case 'products':
           this.compNumber = 2;
           break;
-        case 'contact-us':
+        case 'cart':
           this.compNumber = 3;
+          break;
+        case 'contact-us':
+          this.compNumber = 4;
           break;
       }
     this.title = event['title'];
   }
 
-  public onSubmitRegistration(name: NgModel, email: NgModel, password: NgModel, retypedPassword: NgModel) {
-    if (password.viewModel == retypedPassword.viewModel) {
-      this.formUser = new User(name.viewModel, email.viewModel, password.viewModel);
+  public onSubmitRegistration() {
+    if (this.formUser.password == this.formUser.retypedPassword) {
       this.userService.save(this.formUser);
     }
   }
 
-  public onSubmitLogin(username_email: NgModel, password: NgModel) {
+  public onSubmitLogin() {
     const username_regex = new RegExp("^[A-Za-z0-9_]+$");
     const email_regex = new RegExp("^\\S+@\\S+\\.\\S+$");
-    if (username_regex.test(username_email.viewModel)) {
-      this.userService.login(username_email.viewModel, null, password.viewModel).subscribe((current: User) => {
+    if (username_regex.test(this.formUser.username)) {
+      this.userService.login(this.formUser.username, null, this.formUser.password).subscribe((current: User) => {
         this.currentUser = current;
         this._localStorageService.set("current_user", JSON.stringify(current));
       });
     }
-    if (email_regex.test(username_email.viewModel)) {
-      this.userService.login(null, username_email.viewModel, password.viewModel).subscribe((current: User) => {
+    if (email_regex.test(this.formUser.username)) {
+      this.userService.login(null, this.formUser.username, this.formUser.password).subscribe((current: User) => {
         this.currentUser = current;
         this._localStorageService.set("current_user", JSON.stringify(current));
       });

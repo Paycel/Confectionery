@@ -48,19 +48,19 @@
               <div class="login-popup login-form contact-form" [ngbPopover]="login" [autoClose]="false" #p1='ngbPopover'>
               <ng-template #login>
                   <h4 style="font-family: 'Poppins', sans-serif;">Login</h4>
-                  <form (ngSubmit)="onSubmitLogin(username_email, password)" #userFormLogin='ngForm'>
+                  <form (ngSubmit)="onSubmitLogin()" #userFormLogin='ngForm'>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="contact-container">
-                          <input type="email" placeholder="Email Address" [ngModel]="formUser?.username" required
-                                 #username_email="ngModel" name="username_email">
+                          <input type="email" placeholder="Email Address" [(ngModel)]="formUser.username" required
+                                 name="username">
                           <i class="fa fa-envelope"></i>
                         </div>
                       </div>
                       <div class="col-sm-12 mb-15">
                         <div class="contact-container">
-                          <input type="password" placeholder="Password" [ngModel]="formUser?.password" required
-                                 #password="ngModel" name="password">
+                          <input type="password" placeholder="Password" [(ngModel)]="formUser.password" required
+                                 name="password">
                           <i class="fa fa-eye"></i>
                         </div>
                       </div>
@@ -83,33 +83,33 @@
                    #p2='ngbPopover'>
               <ng-template #registration>
                   <h4 style="font-family: 'Poppins', sans-serif;">Create Account</h4>
-                  <form (ngSubmit)="onSubmitRegistration(name, email, password, retypedPassword)" #userForm='ngForm'>
+                  <form (ngSubmit)="onSubmitRegistration()" #userForm='ngForm'>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="contact-container">
-                          <input type="text" class="form-control" placeholder="Username" [ngModel]="formUser?.username"
+                          <input type="text" class="form-control" placeholder="Username" [(ngModel)]="formUser.username"
                                  required pattern="^[A-Za-z0-9_]+$"
-                                 #name="ngModel" name="username">
+                                  name="username">
                           <i class="fa fa-user"></i>
                         </div>
                       </div>
                       <div class="col-sm-12">
                         <div class="contact-container">
-                          <input type="email" placeholder="Email Address" [ngModel]="formUser?.email" required
-                                 #email="ngModel" name="email" pattern="^\S+@\S+\.\S+$">
+                          <input type="email" placeholder="Email Address" [(ngModel)]="formUser.email" required
+                                 name="email" pattern="^\S+@\S+\.\S+$">
                           <i class="fa fa-envelope"></i>
                         </div>
                       </div>
                       <div class="col-sm-12">
                         <div class="contact-container">
-                          <input type="password" placeholder="Password" [ngModel]="formUser?.password" required
-                                 #password="ngModel" name="password">
+                          <input type="password" placeholder="Password" [(ngModel)]="formUser.password" required
+                                name="password">
                           <i class="fa fa-eye"></i>
                         </div>
                       </div>
                       <div class="col-sm-12 mb-15 contact-container">
-                        <input type="password" placeholder="Retype Password" [ngModel]="formUser?.retypedPassword"
-                               required #retypedPassword="ngModel" name="retypedPassword">
+                        <input type="password" placeholder="Retype Password" [(ngModel)]="formUser.retypedPassword"
+                               required  name="retypedPassword">
                       </div>
                       <div class="col-sm-12 mb-20">
                         <button type='submit' class="krishok-btn"
@@ -166,7 +166,8 @@
             <li [ngClass]="{'active': compNumber === 0}"><a routerLink="">Home</a></li>
             <li [ngClass]="{'active': compNumber === 1}"><a routerLink="/about-us">About Us</a></li>
             <li [ngClass]="{'active': compNumber === 2}"><a routerLink="/products">Products</a></li>
-            <li [ngClass]="{'active': compNumber === 3}"><a routerLink="/contact-us">Contact</a></li>
+            <li [ngClass]="{'active': compNumber === 3}"><a routerLink="/cart">Cart</a></li>
+            <li [ngClass]="{'active': compNumber === 4}"><a routerLink="/contact-us">Contact</a></li>
             <li>
               <button type="submit" class="toggle-pade">
                 <i class="fa fa-search"></i>
@@ -182,20 +183,6 @@
   </div>
 </div><!-- menu area end -->
 <router-outlet (activate)="change_outlet($event)"></router-outlet>
-<!-- get quote area start -->
-<section class="get-quote ptb-50">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>Get Update About Products</h2>
-        <form action="#">
-          <input type="text" placeholder="Email Address">
-          <button type="submit">SUBSCRIBE</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section><!-- get quote area end -->
 <!-- footer area start -->
 <footer class="site-footer pt-75">
   <div class="container">
@@ -222,31 +209,6 @@
             <li>Phone : 1234 5678 9123</li>
             <li>Email : Stevan@Example.com</li>
           </ul>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="widget">
-          <h5 class="widget-title"><a href="#">Instagram Feed</a></h5>
-          <div class="img-gallery">
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget1.jpg" alt=""></a>
-            </div>
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget2.jpg" alt=""></a>
-            </div>
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget3.jpg" alt=""></a>
-            </div>
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget4.jpg" alt=""></a>
-            </div>
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget5.jpg" alt=""></a>
-            </div>
-            <div class="single-img-gallery">
-              <a href="#"><img src="assets/img/widget/widget6.jpg" alt=""></a>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './user.service';
-import { UserListComponent } from './user-list/user-list.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductsComponent } from './products/products.component';
@@ -24,7 +23,6 @@ import {ProductService} from "./product-service.service";
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent,
     AboutUsComponent,
     MenuComponent,
     ProductsComponent,

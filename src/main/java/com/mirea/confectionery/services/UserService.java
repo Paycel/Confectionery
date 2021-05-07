@@ -1,5 +1,7 @@
 package com.mirea.confectionery.services;
 
+import com.mirea.confectionery.models.Product;
+import com.mirea.confectionery.models.Recipient;
 import com.mirea.confectionery.models.Role;
 import com.mirea.confectionery.models.User;
 import com.mirea.confectionery.repositories.UserRepository;
@@ -10,7 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.awt.*;
 import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -49,5 +55,22 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         return user;
+    }
+
+    public void updateCart(User user){
+        User current = userRepository.findByUsername(user.getUsername());
+        current.setCart(user.getCart());
+        current.getCart().forEach(product -> {
+            product.setUsers(Stream.of(current).collect(Collectors.toSet()));
+            //System.out.println(product.getUsers());
+        });
+         userRepository.save(current);
+        //return userRepository.updateCart(user.getId(), current.getCart());
+    }
+
+    public boolean purchase(User user ){
+        user.getCart().clear();
+        updateCart(user);
+        return true;
     }
 }

@@ -1,4 +1,5 @@
 import {Category} from "./category";
+import {User} from "./user";
 
 export class Product {
   id: number;
@@ -10,6 +11,7 @@ export class Product {
   category: Category;
   quantity: number;
   url: string;
+  userIds: Array<number>;
 
 
   constructor(id: number, fullName: string, brandName: string, productName: string, price: number, amount: number, category: Category, quantity: number, url: string) {
@@ -22,5 +24,6 @@ export class Product {
     this.category = category;
     this.quantity = quantity;
     this.url = url;
+    this.userIds = new Array<number>();
   }
 }
