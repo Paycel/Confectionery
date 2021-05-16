@@ -18,11 +18,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable()
-                .authorizeRequests()
-                .antMatchers("/payment/user").hasRole("USER")
-                .antMatchers("/payment/recipient").hasRole("USER")
-                .antMatchers("/cart/update").hasRole("USER");
+        http.csrf().disable().cors().disable();
     }
 
     @Override

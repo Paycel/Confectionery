@@ -26,7 +26,7 @@ public class EmailService {
         String productList = recipient.getProductList().stream().map(Product::toString).collect(Collectors.joining("\n"));
         AtomicReference<Float> totalCost = new AtomicReference<>((float) 0);
         recipient.getProductList().forEach(product -> totalCost.updateAndGet(v -> v + product.getQuantity() * product.getPrice()));
-        productList += String.format("Total cost: $%.2f", totalCost.get());
+        productList += String.format("\nTotal cost: $%.2f", totalCost.get());
         message.setText(String.format("Hello, %s %s!\nDelivery has been made to your address: %s, city: %s.\n" +
                         "Your contact number: %s, if that's incorrect, please contact us!\nInstructions for your delivery: %s\nProducts:\n%s",
                 recipient.getFirstName(), recipient.getLastName(), recipient.getAddress(), recipient.getCity(), recipient.getPhoneNumber(),
