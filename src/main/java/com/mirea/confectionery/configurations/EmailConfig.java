@@ -8,8 +8,16 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * Класс конфигурации почты
+ */
 @Configuration
 public class EmailConfig{
+
+    /**
+     * Функция получения экземляра JavaMailSender
+     * @return Экземпляр JavaMailSender
+     */
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

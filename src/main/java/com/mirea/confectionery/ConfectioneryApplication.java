@@ -20,19 +20,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Главный класс приложения
+ */
 @SpringBootApplication
 @EnableAsync
 public class ConfectioneryApplication implements ApplicationListener<ApplicationReadyEvent> {
+    /** Поле сервиса продуктов */
     @Autowired
     private ProductService productService;
+    /** Поле сервиса категорий */
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * Метод запуска приложения
+     * @param args Аргументы командной строки
+     */
     public static void main(String[] args) {
         SpringApplication.run(ConfectioneryApplication.class, args);
     }
 
+    /**
+     * Стартовая инициализация данных при запуске приложения
+     * @param event Событие запуска приложения
+     */
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         List<Category> categories = Arrays.asList(

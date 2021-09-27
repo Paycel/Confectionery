@@ -12,12 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для работы с почтой
+ */
 @Service
 @Transactional
 public class EmailService {
+    /** Поле экземпляра для отправления сообщений */
     @Autowired
     public JavaMailSender emailSender;
 
+    /**
+     * Отправление сообщения получателю
+     * @param recipient Получатель
+     */
     @Async
     public void sendEmail(Recipient recipient) {
         SimpleMailMessage message = new SimpleMailMessage();

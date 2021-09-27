@@ -23,17 +23,30 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 
+/**
+ * Класс тестирования почтового сервиса
+ */
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class EmailServiceTest {
+    /** Поле почтового сервиса */
     @Autowired
     private EmailService service;
+
+    /** Поле почтового отправителя */
     @MockBean
     private JavaMailSender sender;
+    /** Поле перехватчика аргументов */
     @Captor
     ArgumentCaptor<SimpleMailMessage> captor;
+
+    /** Поле таймера */
     private CountDownLatch lock = new CountDownLatch(1);
 
+    /**
+     * Тестирование отправления сообщения на почту
+     * @throws InterruptedException В случае ошибки
+     */
     @Test
     void sendEmail() throws InterruptedException {
         Recipient recipient = new Recipient();

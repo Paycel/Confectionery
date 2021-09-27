@@ -17,16 +17,27 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Класс тестирования сервиса для работы с пользователями
+ */
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class UserServiceTest {
+    /** Поле сервиса для работы с пользователями */
     @Autowired
     private UserService userService;
+
+    /** Поле репозитория для работы с пользователями */
     @MockBean
     private UserRepository userRepository;
+
+    /** Поле BCrypt шифратора */
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * Тестирование добавления нового пользователя
+     */
     @Test
     void addUser() {
         User user = new User("name", "password", "email");
@@ -36,6 +47,9 @@ class UserServiceTest {
         Mockito.when(userRepository.findAll()).thenReturn(Collections.singletonList(user));
     }
 
+    /**
+     * Тестирование логина пользователя
+     */
     @Test
     void login() {
         User user = new User("name", "password", "email");

@@ -16,64 +16,117 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * Контроллер для работы с фронтом
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
+    /** Поле сервиса для работы с пользователями */
     @Autowired
     private UserService userService;
+    /** Поле сервиса для работы с продуктами */
     @Autowired
     private ProductService productService;
+    /** Поле сервиса для работы с категориями */
     @Autowired
     private CategoryService categoryService;
+    /** Поле сервиса для работы с почтой */
     @Autowired
     private EmailService emailService;
 
+    /**
+     * Создание пользователя
+     * @param user Форма пользователя
+     */
     @PostMapping("/users")
     void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
+    /**
+     * Логин пользователя
+     * @param username Имя пользователя
+     * @param email Почта пользователя
+     * @param password Пароль пользователя
+     * @return Экземпляр пользователя
+     */
     @GetMapping("/users")
     User login(String username, String email, String password) {
         return userService.login(username, email, password);
     }
 
+    /**
+     * Метод получения всех продуктов
+     * @return Список всех продуктов
+     */
     @GetMapping("/products")
     List<Product> findAllProducts() {
         return productService.findAll();
     }
 
+    /**
+     * Поиск продукта по его id
+     * @param id Идентификатор продукта
+     * @return Найденный продукт
+     */
     @GetMapping("/products/{id}")
     Product findProductById(@PathVariable("id") Long id) {
         return productService.findById(id);
     }
 
+    /**
+     * Сортировка продуктов по именам
+     * @return Отсортированный список продуктов по именам
+     */
     @GetMapping("/products/names")
     List<String> findDistinctProductNames() {
         return productService.findDistinctProductNames();
     }
 
+    /**
+     * Сортировка продуктов по имени бренда
+     * @return Отсортированный список продуктов по именам брендов
+     */
     @GetMapping("/products/brands")
     List<String> findDistinctBrandNames() {
         return productService.findDistinctBrandNames();
     }
 
+    /**
+     * Метод получения всех категорий
+     * @return Список всех категорий
+     */
     @GetMapping("/categories")
     List<Category> findAllCategories() {
         return categoryService.findAll();
     }
 
+    /**
+     * Метод оплаты корзины пользователя
+     * @param user Пользователь, совершающий оплату
+     * @return Результат покупки
+     */
     @PostMapping("/payment/user")
     boolean purchase(@RequestBody User user){
         productService.updateAmounts(user.getCart());
         return userService.purchase(user);
     }
 
+    /**
+     * Отправка сообщения заказчику
+     * @param recipient Получатель сообщения
+     */
     @PostMapping("/payment/recipient")
     void sendEmail(@RequestBody Recipient recipient){
         emailService.sendEmail(recipient);
     }
 
+    /**
+     * Обновление корзины пользователя
+     * @param user Пользователь, совершающий покупки
+     * @return Обновленный экземпляр пользователя
+     */
     @PostMapping("/cart/update")
     User updateCart(@RequestBody User user){
         return userService.updateCart(user);

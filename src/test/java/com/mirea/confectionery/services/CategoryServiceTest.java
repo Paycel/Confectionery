@@ -13,14 +13,23 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Collections;
 
+/**
+ * Класс тестирования сервиса работы с категориями
+ */
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class CategoryServiceTest {
+    /** Поле сервиса категорий */
     @Autowired
     private CategoryService categoryService;
+
+    /** Поле репозитория категорий */
     @MockBean
     private CategoryRepository categoryRepository;
 
+    /**
+     * Тестирование добавления новой категории
+     */
     @Test
     void addCategory() {
         Category category = new Category();
@@ -32,6 +41,9 @@ class CategoryServiceTest {
         Mockito.when(categoryRepository.findAll()).thenReturn(Collections.singletonList(category));
     }
 
+    /**
+     * Тестирование вывода всех категорий
+     */
     @Test
     void findAll() {
         Category category = new Category();
